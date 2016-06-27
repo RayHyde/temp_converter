@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Language" content="en" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Convert C to F vv in AngularJS</title>
+	<meta name="description" content="A temperature conversion utility in AngularJS and plain vanilla Javascript">
+	<meta name="keywords" content="covert, conversion, celsius, fahrenheit, temperature, javascript, angularjs, angular, css3">
+	<meta name="author" content="Ray Hyde | www.rayhyde.nl">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://fonts.googleapis.com/css?family=Carter+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/converter.css">
+	<link rel="stylesheet" href="/css/thermometer.css">
+	<script src="https://opensource.keycdn.com/angularjs/1.5.5/angular.min.js"></script>
+	<script src="/js/converter.controller.js"></script>
+</head>
+
+<body ng-app="Converter" ng-init="symbolFrom='C'; symbolTo='F'; which=0; newConversion=20; total=68; tableShow=0; interval=10">
+
+	<div class="container" ng-controller="ConverterCtrl">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1>A temperature conversion utility in AngularJS and plain vanilla Javascript</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-9">
+				<p>The code could probably have been halved if jQuery was used, but hey! Angular is hip. And oh yes, though I totally disapprove, some quick Boostrap thrown in to finish off the non-finesse coding :-)</p>
+
+				<h2>Convert &deg;{{symbolFrom}} to &deg;{{symbolTo}} and vice versa</h2>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="btn btn-sm c-to-f" ng-model="setSymbols" ng-class="{'btn-primary': which==0, 'btn-default': which==1}" ng-click="tableShow=0;which=0; setSymbols()">C to F</div>
+						<div class="btn btn-sm f-to-c" ng-model="setSymbols" ng-class="{'btn-primary': which==1, 'btn-default': which==0}" ng-click="tableShow=0; which=1; setSymbols()">F to C</div>
+					</li>
+					<li class="list-group-item">
+						<form ng-submit="submitItem()">
+							<input type="text" style="width: 60px; text-align: right" placeholder="{{newConversion}}" ng-model="newConversion" ng-keyup="convert($event)" /> &deg;{{symbolFrom}}
+							<input type="submit" value="Converts to" class="btn btn-success btn-sm"> <span class="total">{{total}} &deg;{{symbolTo}}</span>
+						</form>
+					</li>
+				</ul>
+
+				<div class="row">
+					<div class="col-sm-3">
+						<span class="btn btn-sm c-to-f btn-primary" ng-show="tableShow==0" ng-model="createTable" ng-click="createTable()">Show table</span>
+					</div>
+					<div class="col-sm-9">
+						Interval:
+						<label class="radio-inline">
+							<input type="radio" ng-model="interval" ng-click="tableShow=0;setSymbols()" name="intervalSet" value="1">1
+						</label>
+						<label class="radio-inline">
+							<input type="radio" ng-model="interval" ng-click="tableShow=0;setSymbols()" name="intervalSet" value="10" checked>10
+						</label>
+						<label class="radio-inline">
+							<input type="radio" ng-model="interval" ng-click="tableShow=0;setSymbols()" name="intervalSet" value="100">100
+						</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+
+						<h3><span ng-show="tableShow==1">Table</span></h3>
+						<div id="table" class="row" ng-animate="'animate'">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="thermometer-wrap">
+					<div id="thermometer" ng-model="createMeter">
+						<span class="symbol-from top">&deg;{{symbolFrom}}</span>
+						<span class="symbol-to top">&deg;{{symbolTo}}</span>
+						<div class="meter"></div>
+						<div id="grad-marks"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="explain">
+					<p class="extra-padding">This project is part of my Playground - a collection of fun (and dare I say it: clever) stuff I made in the past, from jQuery games and plugins to CSS animation tricks.</p>
+					<p>Please drop in on my portfolio site <a href="http://www.rayhyde.nl">www.rayhyde.nl</a>!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-12332810-1");
+			pageTracker._trackPageview();
+		} catch (err) {}
+	</script>
+</body>
+
+</html>
